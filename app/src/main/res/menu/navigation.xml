@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_pendientes"
+        android:icon="@drawable/ic_pendientes"
+        android:enabled="true"
+        android:title="@string/pendientes"
+        />
+
+    <item
+        android:id="@+id/navigation_realizados"
+        android:icon="@drawable/ic_realizados"
+        android:title="@string/realizados"
+        android:enabled="true"
+        />
+
+    <item
+        android:id="@+id/navigation_inventarios"
+        android:icon="@drawable/ic_inventarios"
+        android:enabled="true"
+        android:title="@string/inventarios"
+        />
+
+</menu>
