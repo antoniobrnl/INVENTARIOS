@@ -31,14 +31,14 @@ public class adaptadorAlmacen extends BaseAdapter{
 
     @Override
     public long getItemId(int position) {
-        return list.get(position).getId();
+        return 0;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View vista = convertView;
         LayoutInflater inflater = LayoutInflater.from(context);
-        vista = inflater.inflate(R.layout.item, null);
+        vista = inflater.inflate(R.layout.fragment_inventarios, null);
 
         TextView title = (TextView) vista.findViewById(R.id.titulo);
         TextView desc = (TextView) vista.findViewById(R.id.contenido);
