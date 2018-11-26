@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
 
     Button btn;
     EditText user, pass;
-    TextView token,companyid;
+    TextView token,companyid, id_em, nom_em, corr_em;
     private Requestmethods request;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,10 @@ public class LoginActivity extends AppCompatActivity {
         pass = (EditText)findViewById(R.id.txtpassword);
         token = (TextView)findViewById(R.id.token);
         companyid = (TextView)findViewById(R.id.companyid);
+
+        id_em = (TextView)findViewById(R.id.id_empleado);
+        nom_em = (TextView)findViewById(R.id.nombre_empleado);
+        corr_em = (TextView)findViewById(R.id.correo_empleado);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,8 +57,11 @@ public class LoginActivity extends AppCompatActivity {
                                     token.setText(obj.getString("token"));
                                     JSONObject user = new JSONObject(obj.getString("user"));
                                     companyid.setText(user.getString("company_id"));
+                                    id_em.setText(user.getString("_id"));
+                                    nom_em.setText(user.getString("name")+" "+ user.getString("last_name"));
+                                    corr_em.setText(user.getString("email"));
                                     guardarPreferencias();
-                                    if (user.getBoolean("account_delete")==false) {
+                                    if (user.getBoolean("account_delete")==false && user.getInt("type")==1) {
                                         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                                         startActivity(intent);
                                         Toast.makeText(getApplicationContext(),"Sesión: Iniciada", Toast.LENGTH_SHORT).show();
@@ -96,13 +103,23 @@ public class LoginActivity extends AppCompatActivity {
 
         String TOKEN = token.getText().toString();
         String COMPANY_ID = companyid.getText().toString();
+        String ID_EM = id_em.getText().toString();
+        String NOM_EM = nom_em.getText().toString();
+        String CORR_EM = corr_em.getText().toString();
 
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("TOKEN", TOKEN);
         editor.putString("COMPANY_ID", COMPANY_ID);
+        editor.putString("ID_EM", ID_EM);
+        editor.putString("NOM_EM", NOM_EM);
+        editor.putString("CORR_EM", CORR_EM);
 
         token.setText(TOKEN);
         companyid.setText(COMPANY_ID);
+        id_em.setText(ID_EM);
+        nom_em.setText(NOM_EM);
+        corr_em.setText(CORR_EM);
+
         editor.commit();
     }
 
@@ -111,5 +128,8 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String TOKEN = preferences.getString("TOKEN", "No Existe");
         String COMPANY_ID = preferences.getString("COMPANY_ID", "No Existe");
+        String ID_EM = preferences.getString("ID_EM", "No Existe");
+        String NOM_EM = preferences.getString("NOM_EM", "No Existe");
+        String CORR_EM = preferences.getString("CORR_EM", "No Existe");
     }
 }

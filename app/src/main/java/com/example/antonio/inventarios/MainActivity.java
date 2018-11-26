@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String TOKEN = preferences.getString("TOKEN","");
+        String TOKEN = preferences.getString("TOKEN","No Existe");
         if (TOKEN == ""){
             setContentView(R.layout.activity_main);
             Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
@@ -114,6 +114,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showAlert(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        final String COMPANY_ID = preferences.getString("COMPANY_ID", "No Existe");
+        final String ID_EM = preferences.getString("ID_EM", "No Existe");
+        final String NOM_EM = preferences.getString("NOM_EM", "No Existe");
+        final String CORR_EM = preferences.getString("CORR_EM", "No Existe");
         AlertDialog.Builder myBuilder= new AlertDialog.Builder(this, R.style.AlertDialogStyle);
         final CharSequence[] opciones= {"Perfil","Ayuda","Cerrar Sesión"};
         AlertDialog.Builder builder = myBuilder.setTitle("Configuración").setItems(opciones, new DialogInterface.OnClickListener() {
@@ -122,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 //PERFIL
                 if (position == 0) {
                     AlertDialog.Builder myBuilder3 = new AlertDialog.Builder(MainActivity.this, R.style.AlertDialogStyle);
-                    final CharSequence[] opciones = {"ID: 000000 ", "Nombre: Ejemplo Ejemplo ", "Correo: ejemplo@software.com", "Compañia: SofTeam", "Tipo: Empleado"};
+                    final CharSequence[] opciones = {"ID: "+ID_EM, "Nombre: "+NOM_EM, "Correo: "+CORR_EM, "Compañia: "+COMPANY_ID};
                     myBuilder3.setTitle("Perfil").setItems(opciones, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -171,9 +176,15 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     String TOKEN = "";
                     String COMPANY_ID = "";
+                    String ID_EM = "";
+                    String NOM_EM = "";
+                    String CORR_EM = "";
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("TOKEN", TOKEN);
                     editor.putString("COMPANY_ID", COMPANY_ID);
+                    editor.putString("ID_EM", ID_EM);
+                    editor.putString("NOM_EM", NOM_EM);
+                    editor.putString("CORR_EM", CORR_EM);
                     editor.commit();
                     //Iniciamos LoginActivity
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
