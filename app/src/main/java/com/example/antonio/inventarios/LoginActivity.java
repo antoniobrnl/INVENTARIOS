@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //Aqui cargamos el token y el company_id gurdados en la memoria del celular
     private void cargarPreferencias(){
-        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String TOKEN = preferences.getString("TOKEN","No Existe");
         String COMPANY_ID = preferences.getString("COMPANY_ID", "No Existe");
     }

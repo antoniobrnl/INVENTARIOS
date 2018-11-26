@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                 //CERRAR SESIÓN
                 if (position == 2) {
                     //Vaciar toke y company_id
-                    SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     String TOKEN = "";
                     String COMPANY_ID = "";
                     SharedPreferences.Editor editor = preferences.edit();
