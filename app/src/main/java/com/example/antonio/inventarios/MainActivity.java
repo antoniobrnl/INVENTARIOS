@@ -11,10 +11,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_inventarios:
                     //ACCIÓN
-                    InventariosFragment fragment3 = new InventariosFragment();
+                    InventariosFragment fragment3 = new InventariosFragment(getApplicationContext());
                     android.support.v4.app.FragmentTransaction fragmentTransaction3 = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction3.replace(R.id.constraint, fragment3, "FragmentName");
                     fragmentTransaction3.commit();
@@ -66,9 +68,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String TOKEN = preferences.getString("TOKEN","No Existe");
-
         if (TOKEN == ""){
             setContentView(R.layout.activity_main);
             Intent intent = new Intent(getApplicationContext(),LoginActivity.class);

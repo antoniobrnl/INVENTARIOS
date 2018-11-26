@@ -7,13 +7,15 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.List;
+import com.example.antonio.inventarios.models.Inventarios;
+
+import java.util.ArrayList;
 
 public class adaptadorAlmacen extends BaseAdapter{
     Context context;
-    List<Inventarios> list;
+    ArrayList<Inventarios> list;
 
-    public adaptadorAlmacen(Context context, List<Inventarios> list) {
+    public adaptadorAlmacen(Context context, ArrayList<Inventarios> list) {
         this.context = context;
         this.list = list;
     }
@@ -38,13 +40,13 @@ public class adaptadorAlmacen extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         View vista = convertView;
         LayoutInflater inflater = LayoutInflater.from(context);
-        vista = inflater.inflate(R.layout.fragment_inventarios, null);
+        vista = inflater.inflate(R.layout.inventarios, null);
 
-        TextView title = (TextView) vista.findViewById(R.id.titulo);
-        TextView desc = (TextView) vista.findViewById(R.id.contenido);
+        TextView title = (TextView) vista.findViewById(R.id.textView);
+        TextView desc = (TextView) vista.findViewById(R.id.textView2);
 
-        title.setText(list.get(position).getTitulo());
-        desc.setText(list.get(position).getContenido());
+        title.setText(list.get(position).getDir());
+        desc.setText(list.get(position).getCity());
 
 
         return vista;

@@ -26,4 +26,6 @@ public class PendientesFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_pendientes, container, false);
     }
 
+
+
 }

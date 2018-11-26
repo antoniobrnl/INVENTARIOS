@@ -5,6 +5,7 @@ import android.content.ContentProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -45,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
                 String contrasena = pass.getText().toString();
                 String content = "email="+usuario+",password="+contrasena;
                 try {
-                    request.post("login","","",content,new VolleyCallback(){
+                    request.post("login","", "","",content,new VolleyCallback(){
                         @Override
                         public void onSuccess(String result){
                             try {
@@ -98,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     //Aqui guardamos el token y el company_id gurdados en la memoria del celular
     private void guardarPreferencias(){
-        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         String TOKEN = token.getText().toString();
         String COMPANY_ID = companyid.getText().toString();

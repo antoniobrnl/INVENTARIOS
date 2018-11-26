@@ -18,13 +18,14 @@ import java.util.Map;
 public class Requestmethods {
     private String PATH = "https://rest-inventario.herokuapp.com/";
     RequestQueue requestQueue;
+    private Context ctx;
 
     public Requestmethods(Context context){
-
+        ctx = context;
         requestQueue = Volley.newRequestQueue(context);
     }
     //GET
-    public String get(String urlApi, final String token, String id, final VolleyCallback Callback){
+    public String get(String urlApi, final String token, final String companyId , String id, final VolleyCallback Callback){
         final String[] res = {""};
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(
                 Request.Method.GET,
@@ -40,7 +41,7 @@ public class Requestmethods {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Toast.makeText(ctx, error+"", Toast.LENGTH_LONG).show();
                     }
 
                 }){
@@ -48,6 +49,7 @@ public class Requestmethods {
                 HashMap<String, String> headers = new HashMap<String, String>();
 
                 headers.put("token", token);
+                headers.put("selectedCompany",companyId);
                 return headers;
             }
         };
@@ -55,7 +57,7 @@ public class Requestmethods {
         return res[0];
     }
     //DELETE
-    public String delete(String urlApi, final String token, String id, final VolleyCallback Callback){
+    public String delete(String urlApi, final String token, final String companyId, String id, final VolleyCallback Callback){
         final String[] res = {""};
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(
                 Request.Method.DELETE,
@@ -79,6 +81,7 @@ public class Requestmethods {
                 HashMap<String, String> headers = new HashMap<String, String>();
 
                 headers.put("token", token);
+                headers.put("selectedCompany",companyId);
                 return headers;
             }
         };
@@ -86,7 +89,7 @@ public class Requestmethods {
         return res[0];
     }
     //POST
-    public void post(String urlApi, final String token, String id, String content, final VolleyCallback Callback) throws JSONException {
+    public void post(String urlApi, final String token,final String companyId , String id, String content, final VolleyCallback Callback) throws JSONException {
         final String[] res = {""};
         String contentArray[] = content.split(",");
         JSONObject objs = new JSONObject();
@@ -117,13 +120,14 @@ public class Requestmethods {
                 HashMap<String, String> headers = new HashMap<String, String>();
 
                 headers.put("token", token);
+                headers.put("selectedCompany",companyId);
                 return headers;
             }
         };
         requestQueue.add(jsonObjReq);
     }
     //PUT
-    public String put(String urlApi, final String token, String id, String content, final VolleyCallback Callback) throws JSONException {
+    public String put(String urlApi, final String token, final String companyId, String id, String content, final VolleyCallback Callback) throws JSONException {
         final String[] res = {""};
         String contentArray[] = content.split(",");
         JSONObject objs = new JSONObject();
@@ -154,6 +158,7 @@ public class Requestmethods {
                 HashMap<String, String> headers = new HashMap<String, String>();
 
                 headers.put("token", token);
+                headers.put("selectedCompany",companyId);
                 return headers;
             }
         };
