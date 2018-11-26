@@ -30,8 +30,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-
         request = new Requestmethods(getApplicationContext());
         btn = (Button)findViewById(R.id.loginBtn);
         user = (EditText)findViewById(R.id.txtuser);
@@ -63,11 +61,6 @@ public class LoginActivity extends AppCompatActivity {
                                     } else{
                                         Toast.makeText(getApplicationContext(),"Este usuario ¡No puede acceder!", Toast.LENGTH_SHORT).show();
                                     }
-
-                                        //String id = user.getString("_id");
-                                        //String nombre = user.getString("name") + " " + user.getString("last_name");
-                                        //String correo = user.getString("email");
-                                        //String compania = user.getString("company_id");
 
                                 }
                                 if (obj.getBoolean("ok")!=true){
@@ -114,9 +107,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //Aqui cargamos el token y el company_id gurdados en la memoria del celular
-    private void cargarPreferencias(){
+    private void cargarPreferencias() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String TOKEN = preferences.getString("TOKEN","No Existe");
+        String TOKEN = preferences.getString("TOKEN", "No Existe");
         String COMPANY_ID = preferences.getString("COMPANY_ID", "No Existe");
     }
 }
