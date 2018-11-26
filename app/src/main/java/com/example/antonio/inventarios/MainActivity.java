@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String TOKEN = preferences.getString("TOKEN","No Existe");
+        String TOKEN = preferences.getString("TOKEN","");
         if (TOKEN == ""){
             setContentView(R.layout.activity_main);
             Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
@@ -133,10 +133,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 //AYUDA
                 if (position == 1) {
-                        String emp = "SofTeam";
-                        final String tel = "8542678532";
-                        final String corr = "software@software.com";
-                        final String dir = "http://www.faccebook.com";
+                        String emp = "DeveloperSofTeam";
+                        final String tel = "6621536060";
+                        final String corr = "developersofteam@gmail.com";
+                        final String dir = "https://app-inventar.herokuapp.com/";
 
                         AlertDialog.Builder myBuilder2 = new AlertDialog.Builder(MainActivity.this, R.style.AlertDialogStyle);
                         final CharSequence[] opciones = {"Empresa Desarrolladora: "+emp, "Telefono: "+tel, "Correo: "+corr, "Preguntas"};
