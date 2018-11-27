@@ -1,12 +1,11 @@
 package com.example.antonio.inventarios;
 
 import android.annotation.SuppressLint;
-import android.app.FragmentTransaction;
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -16,11 +15,13 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.blikoon.qrcodescanner.QrCodeActivity;
+import com.pedro.library.AutoPermissions;
 
 import static com.example.antonio.inventarios.R.menu.menu_main;
 
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     AlertDialog myDialog;
     AlertDialog myDialog2;
     AlertDialog myDialog3;
+    private static final int REQUEST_CODE_QR_SCAN = 101;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -64,12 +66,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
     };
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 100:
+                //acción o método a realizar.
+                break;
+        }
+    }
+
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String TOKEN = preferences.getString("TOKEN","No Existe");
+
         if (TOKEN == ""){
             setContentView(R.layout.activity_main);
             Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
@@ -113,6 +126,28 @@ public class MainActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    //QR INICIA
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode != Activity.RESULT_OK) {
+            Toast.makeText(getApplicationContext(), "No se pudo obtener una respuesta", Toast.LENGTH_SHORT).show();
+            String resultado = data.getStringExtra("com.blikoon.qrcodescanner.error_decoding_image");
+            if (resultado != null) {
+                Toast.makeText(getApplicationContext(), "No se pudo escanear el código QR", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+        if (requestCode == REQUEST_CODE_QR_SCAN) {
+            if (data != null) {
+                String lectura = data.getStringExtra("com.blikoon.qrcodescanner.got_qr_scan_relult");
+                Toast.makeText(getApplicationContext(), "Leído: " + lectura, Toast.LENGTH_SHORT).show();
+
+            }
+        }
+    }
+    //QR FINALIZA
+
+
     private void showAlert(){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final String COMPANY_ID = preferences.getString("COMPANY_ID", "No Existe");
@@ -120,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         final String NOM_EM = preferences.getString("NOM_EM", "No Existe");
         final String CORR_EM = preferences.getString("CORR_EM", "No Existe");
         AlertDialog.Builder myBuilder= new AlertDialog.Builder(this, R.style.AlertDialogStyle);
-        final CharSequence[] opciones= {"Perfil","Ayuda","Cerrar Sesión"};
+        final CharSequence[] opciones= {"Perfil","Ayuda","Cerrar Sesión","  ","Identificar Producto"};
         AlertDialog.Builder builder = myBuilder.setTitle("Configuración").setItems(opciones, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, final int position) {
@@ -191,6 +226,12 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     //Mensaje de finalizacion
                     Toast.makeText(MainActivity.this, "Sesión: Finalizada", Toast.LENGTH_SHORT).show();
+                }
+                //IDENTIFICAR PRODUCTO
+                if (position == 4) {
+                    AutoPermissions.Companion.loadAllPermissions(MainActivity.this, 1);
+                    Intent i = new Intent(MainActivity.this, QrCodeActivity.class);
+                    startActivityForResult(i, REQUEST_CODE_QR_SCAN);
                 }
             }
         });

@@ -7,6 +7,14 @@ public class Order {
     private String company_id;
     private int completed;
 
+    public Order(int date, String employee_id, int date_delivery, String company_id, int completed) {
+        Date = date;
+        this.employee_id = employee_id;
+        this.date_delivery = date_delivery;
+        this.company_id = company_id;
+        this.completed = completed;
+    }
+
     public int getDate() {
         return Date;
     }

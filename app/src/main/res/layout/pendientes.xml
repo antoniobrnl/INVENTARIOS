@@ -24,21 +24,21 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/num_ped"
+                android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="#Pedido"
+                android:text="15/12/18"
                 android:textColor="@android:color/black"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/des_ped"
+                android:id="@+id/date_delivery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Descripcion"
+                android:text="20/12/18"
                 android:textSize="14dp" />
         </LinearLayout>
     </LinearLayout>
