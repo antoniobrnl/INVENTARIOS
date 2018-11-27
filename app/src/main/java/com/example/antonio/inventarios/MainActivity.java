@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_pendientes:
                     //ACCIÓN
-                    PendientesFragment fragment = new PendientesFragment();
+                    PendientesFragment fragment = new PendientesFragment(getApplicationContext());
                     android.support.v4.app.FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction1.replace(R.id.constraint, fragment, "FragmentName");
                     fragmentTransaction1.commit();
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Sistema de Inventarios");
-        PendientesFragment fragment = new PendientesFragment();
+        PendientesFragment fragment = new PendientesFragment(getApplicationContext());
         android.support.v4.app.FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
         fragmentTransaction1.replace(R.id.constraint, fragment, "FragmentName");
         fragmentTransaction1.commit();

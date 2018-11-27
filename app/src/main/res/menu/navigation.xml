@@ -12,7 +12,7 @@
     <item
         android:id="@+id/navigation_realizados"
         android:icon="@drawable/ic_realizados"
-        android:title="@string/realizados"
+        android:title="@string/mis_pedidos"
         android:enabled="true"
         />
 
