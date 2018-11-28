@@ -1,15 +1,23 @@
 package com.example.antonio.inventarios;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.example.antonio.inventarios.models.OrderItem;
 import com.example.antonio.inventarios.models.Product;
 import com.example.antonio.inventarios.models.produtList;
+import com.pedro.library.AutoPermissions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,13 +27,28 @@ import java.util.ArrayList;
 
 public class product extends AppCompatActivity {
     private Toolbar toolbar;
-
+    private static final int REQUEST_CODE_QR_SCAN = 101;
 
     Requestmethods requestmethods;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("ORDEN");
+
+        //BOTON QR
+        Button btn_leer = (Button) findViewById(R.id.leer);
+        btn_leer.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                AutoPermissions.Companion.loadAllPermissions(product.this, 1);
+                Intent i = new Intent(product.this, QrCodeActivity.class);
+                startActivityForResult(i, REQUEST_CODE_QR_SCAN);
+            }
+        });
+
         requestmethods = new Requestmethods(getApplicationContext());
         final ListView listView = findViewById(R.id.productos);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -85,11 +108,30 @@ public class product extends AppCompatActivity {
                     }else{
 
                     }
-                } catch (JSONException e) {
+                }catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
+    //QR
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode != Activity.RESULT_OK) {
+            Toast.makeText(getApplicationContext(), "No se pudo obtener una respuesta", Toast.LENGTH_SHORT).show();
+            String resultado = data.getStringExtra("com.blikoon.qrcodescanner.error_decoding_image");
+            if (resultado != null) {
+                Toast.makeText(getApplicationContext(), "No se pudo escanear el código QR", Toast.LENGTH_SHORT).show();
+            }
+            return ;
+        }
+        if (requestCode == REQUEST_CODE_QR_SCAN) {
+            if (data != null) {
+                String lectura = data.getStringExtra("com.blikoon.qrcodescanner.got_qr_scan_relult");
+                Toast.makeText(getApplicationContext(), "Leído: " + lectura, Toast.LENGTH_SHORT).show();
+
+            }
+        }
     }
 }
 

@@ -79,12 +79,13 @@ public class PendientesFragment extends Fragment  {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Order select = new Order(ordersArray.get(i).getId(),ordersArray.get(i).getDate(),ordersArray.get(i).getEmployee_id(),ordersArray.get(i).getDate_delivery(),ordersArray.get(i).getCompany_id(),ordersArray.get(i).getCompleted());
-                Toast.makeText(context, select.getId()+"", Toast.LENGTH_SHORT).show();
                 try {
                     requestmethods.put("order/",TOKEN,COMPANYID,select.getId(),"completed=1,employee_id='"+ID_EM+"'",new VolleyCallback() {
-                        @Override
-                        public void onSuccess(String result) {
-                            Toast.makeText(context, result+"", Toast.LENGTH_SHORT).show();
+                                @Override
+                                public void onSuccess(String result) {
+                                    Toast.makeText(context, "Se añadió a Mis Pedidos", Toast.LENGTH_SHORT).show();
+
+                            // ESTO SE VA PARA CUANDO SE TERMINE UNA ORDEN
                         }
                     });
                 } catch (JSONException e) {

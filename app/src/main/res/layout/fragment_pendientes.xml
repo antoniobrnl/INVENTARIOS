@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
     tools:context=".PendientesFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <ListView
         android:id="@+id/list_pedido"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/cardview_light_background">
 
     </ListView>
 
