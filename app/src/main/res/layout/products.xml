@@ -24,21 +24,35 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/date"
+                android:id="@+id/name_producto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="15/12/18"
+                android:text="Nombre del Producto"
                 android:textColor="@android:color/black"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/date_delivery"
+                android:id="@+id/dis_producto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="20/12/18"
+                android:text="Disponibilidad: 20"
+                android:textSize="14dp" />
+            <TextView
+                android:id="@+id/req_producto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="Requeridos: 1"
+                android:textSize="14dp" />
+            <TextView
+                android:id="@+id/ubi_producto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="Ubicación"
                 android:textSize="14dp" />
         </LinearLayout>
 

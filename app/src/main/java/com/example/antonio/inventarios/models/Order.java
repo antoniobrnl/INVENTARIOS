@@ -6,13 +6,23 @@ public class Order {
     private int date_delivery;
     private String company_id;
     private int completed;
+    private String id;
 
-    public Order(int date, String employee_id, int date_delivery, String company_id, int completed) {
+    public Order(String id, int date, String employee_id, int date_delivery, String company_id, int completed) {
+        this.id=id;
         Date = date;
         this.employee_id = employee_id;
         this.date_delivery = date_delivery;
         this.company_id = company_id;
         this.completed = completed;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public int getDate() {

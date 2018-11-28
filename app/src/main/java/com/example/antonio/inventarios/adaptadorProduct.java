@@ -9,31 +9,30 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.antonio.inventarios.models.Order;
+import com.example.antonio.inventarios.models.produtList;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
-public class adaptadorPendientes extends BaseAdapter {
+public class adaptadorProduct extends BaseAdapter {
 
     Context context;
-    ArrayList<Order> list;
+    produtList list;
 
-    public adaptadorPendientes(Context context, ArrayList<Order> list) {
+    public adaptadorProduct(Context context, produtList list) {
         this.context = context;
         this.list = list;
     }
 
     @Override
     public int getCount() {
-        return list.size();
+        return list.getOrdersItemArray().size();
     }
 
     @Override
     public Object getItem(int position) {
 
-        return list.get(position);
+        return list.getOrdersItemArray().get(position);
     }
 
     @Override
@@ -46,13 +45,17 @@ public class adaptadorPendientes extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View vista = convertView;
         LayoutInflater inflater = LayoutInflater.from(context);
-        vista = inflater.inflate(R.layout.pendientes, null);
+        vista = inflater.inflate(R.layout.products, null);
 
-        TextView date = (TextView) vista.findViewById(R.id.date);
-        TextView date_delivery = (TextView) vista.findViewById(R.id.date_delivery);
+        TextView name = (TextView) vista.findViewById(R.id.name_producto);
+        TextView disponibility = (TextView) vista.findViewById(R.id.dis_producto);
+        TextView req_producto = (TextView) vista.findViewById(R.id.req_producto);
+        TextView ubi_producto = (TextView) vista.findViewById(R.id.ubi_producto);
 
-        date.setText("Fecha de Entrada: "+getDate(list.get(position).getDate()));
-        date_delivery.setText("Fecha de Salida: "+getDate(list.get(position).getDate_delivery()));
+        name.setText(list.getProductArray().get(position).getName());
+        disponibility.setText("Disponibilidad: "+Integer.toString(list.getProductArray().get(position).getQty()));
+        req_producto.setText("Cantidad a salir: "+Integer.toString(list.getOrdersItemArray().get(position).getQty()));
+        ubi_producto.setText(list.getProductArray().get(position).getMeta_info());
 
 
         return vista;

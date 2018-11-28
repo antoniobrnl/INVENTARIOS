@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.antonio.inventarios.models.Order;
 
@@ -46,7 +47,8 @@ public class PendientesFragment extends Fragment  {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         final String TOKEN = preferences.getString("TOKEN","No Existe");
-        String COMPANYID = preferences.getString("COMPANY_ID","No Existe");
+        final String COMPANYID = preferences.getString("COMPANY_ID","No Existe");
+        final String ID_EM = preferences.getString("ID_EM","No Existe");
 
         requestmethods.get("order", TOKEN, COMPANYID, "", new VolleyCallback() {
             @Override
@@ -58,7 +60,7 @@ public class PendientesFragment extends Fragment  {
                         for (int i = 0; i < orders.length(); i++) {
                             JSONObject order =  orders.getJSONObject(i);
                             if (order.getString("employee_id").indexOf("No ha sido aceptado")>=0) {
-                                Order tmpOrd = new Order(order.getInt("date"), "", order.getInt("date_delivery"), order.getString("company_id"), order.getInt("completed"));
+                                Order tmpOrd = new Order(order.getString("_id"),order.getInt("date"), "", order.getInt("date_delivery"), order.getString("company_id"), order.getInt("completed"));
                                 ordersArray.add(tmpOrd);
                             }
                         }
@@ -73,10 +75,21 @@ public class PendientesFragment extends Fragment  {
                 }
             }
         });
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Order select = new Order(ordersArray.get(i).getId(),ordersArray.get(i).getDate(),ordersArray.get(i).getEmployee_id(),ordersArray.get(i).getDate_delivery(),ordersArray.get(i).getCompany_id(),ordersArray.get(i).getCompleted());
+                Toast.makeText(context, select.getId()+"", Toast.LENGTH_SHORT).show();
+                try {
+                    requestmethods.put("order/",TOKEN,COMPANYID,select.getId(),"completed=1,employee_id='"+ID_EM+"'",new VolleyCallback() {
+                        @Override
+                        public void onSuccess(String result) {
+                            Toast.makeText(context, result+"", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             }
         });

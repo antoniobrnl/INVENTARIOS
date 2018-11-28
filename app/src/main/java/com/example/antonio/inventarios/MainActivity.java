@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_realizados:
                     //ACCIÓN
-                    RealizadosFragment fragment2 = new RealizadosFragment();
+                    RealizadosFragment fragment2 = new RealizadosFragment(getApplicationContext());
                     android.support.v4.app.FragmentTransaction fragmentTransaction2 = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction2.replace(R.id.constraint, fragment2, "FragmentName");
                     fragmentTransaction2.commit();

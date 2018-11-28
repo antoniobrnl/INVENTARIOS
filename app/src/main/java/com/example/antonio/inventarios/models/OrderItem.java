@@ -6,6 +6,13 @@ public class OrderItem {
     private int qty;
     private String company_id;
 
+    public OrderItem(String orderId, String product_id, int qty, String company_id) {
+        OrderId = orderId;
+        this.product_id = product_id;
+        this.qty = qty;
+        this.company_id = company_id;
+    }
+
     public String getOrderId() {
         return OrderId;
     }

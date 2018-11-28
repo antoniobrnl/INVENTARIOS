@@ -11,6 +11,17 @@ public class Product {
     private String warehouse_id;
     private String company_id;
 
+    public Product(String name, int qty, String meta_info, String desc, String img, int price, String warehouse_id, String company_id) {
+        this.name = name;
+        this.qty = qty;
+        this.meta_info = meta_info;
+        this.desc = desc;
+        this.img = img;
+        this.price = price;
+        this.warehouse_id = warehouse_id;
+        this.company_id = company_id;
+    }
+
     public String getName() {
         return name;
     }
