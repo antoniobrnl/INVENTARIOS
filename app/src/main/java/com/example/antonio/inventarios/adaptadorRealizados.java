@@ -20,6 +20,7 @@ public class adaptadorRealizados extends BaseAdapter {
     Context context;
     ArrayList<Order> list;
 
+
     public adaptadorRealizados(Context context, ArrayList<Order> list) {
         this.context = context;
         this.list = list;

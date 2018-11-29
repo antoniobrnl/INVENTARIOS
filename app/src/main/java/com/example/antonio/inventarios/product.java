@@ -29,6 +29,8 @@ public class product extends AppCompatActivity {
     private Toolbar toolbar;
     private static final int REQUEST_CODE_QR_SCAN = 101;
 
+
+
     Requestmethods requestmethods;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,58 @@ public class product extends AppCompatActivity {
                 startActivityForResult(i, REQUEST_CODE_QR_SCAN);
             }
         });
+
+        //BOTON CANCELAR
+        final Button btn_can = (Button) findViewById(R.id.cancelar);
+        btn_can.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                requestmethods = new Requestmethods(getApplicationContext());
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                final String ID_EM = preferences.getString("ID_EM","No Existe");
+                final String TOKEN = preferences.getString("TOKEN","No Existe");
+                final String COMPANYID = preferences.getString("COMPANY_ID","No Existe");
+                Bundle Extras = getIntent().getExtras();
+                final String orderID = Extras.getString("orderID");
+                try {
+                    requestmethods.put("order/",TOKEN,COMPANYID,orderID,"completed=0,employee_id='No ha sido aceptado'",new VolleyCallback() {
+                        @Override
+                        public void onSuccess(String result) {
+                            Toast.makeText(getApplicationContext(), "Se añadió a Mis Pedidos", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        //BOTON TERMINAR
+        final Button btn_ter = (Button) findViewById(R.id.terminar);
+        btn_ter.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                requestmethods = new Requestmethods(getApplicationContext());
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                final String ID_EM = preferences.getString("ID_EM","No Existe");
+                final String TOKEN = preferences.getString("TOKEN","No Existe");
+                final String COMPANYID = preferences.getString("COMPANY_ID","No Existe");
+                Bundle Extras = getIntent().getExtras();
+                final String orderID = Extras.getString("orderID");
+                try {
+                    requestmethods.put("order/",TOKEN,COMPANYID,orderID,"completed=2,employee_id='"+ID_EM+"'",new VolleyCallback() {
+                        @Override
+                        public void onSuccess(String result) {
+                            Toast.makeText(getApplicationContext(), "Pedido Terminado", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
 
         requestmethods = new Requestmethods(getApplicationContext());
         final ListView listView = findViewById(R.id.productos);
@@ -113,7 +167,26 @@ public class product extends AppCompatActivity {
                 }
             }
         });
+        requestmethods.get("order/", TOKEN, COMPANYID, orderID, new VolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                try {
+                    JSONObject objOrder = new JSONObject(result.toString());
+
+                    JSONObject order = new JSONObject(objOrder.getString("order"));
+                    if(order.getInt("completed") == 2){
+                        btn_can.setVisibility(View.INVISIBLE);
+                        btn_ter.setVisibility(View.INVISIBLE);
+                    }
+
+                }
+                catch(JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        });
     }
+
     //QR
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -132,7 +205,9 @@ public class product extends AppCompatActivity {
 
             }
         }
+
     }
+
 }
 
 
