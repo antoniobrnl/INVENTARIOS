@@ -66,7 +66,8 @@ public class product extends AppCompatActivity {
                     requestmethods.put("order/",TOKEN,COMPANYID,orderID,"completed=0,employee_id='No ha sido aceptado'",new VolleyCallback() {
                         @Override
                         public void onSuccess(String result) {
-                            Toast.makeText(getApplicationContext(), "Se añadió a Mis Pedidos", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Se añadió a Pendientes", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Para actualizar preciona Mis Pedidos", Toast.LENGTH_LONG).show();
                             finish();
                         }
                     });
@@ -92,6 +93,7 @@ public class product extends AppCompatActivity {
                         @Override
                         public void onSuccess(String result) {
                             Toast.makeText(getApplicationContext(), "Pedido Terminado", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Para actualizar preciona Mis Pedidos", Toast.LENGTH_LONG).show();
                             finish();
                         }
 

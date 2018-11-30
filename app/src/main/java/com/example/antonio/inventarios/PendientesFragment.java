@@ -84,6 +84,7 @@ public class PendientesFragment extends Fragment  {
                                 @Override
                                 public void onSuccess(String result) {
                                     Toast.makeText(context, "Se añadió a Mis Pedidos", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Para actualizar preciona Pendientes", Toast.LENGTH_LONG).show();
 
                             // ESTO SE VA PARA CUANDO SE TERMINE UNA ORDEN
                         }
