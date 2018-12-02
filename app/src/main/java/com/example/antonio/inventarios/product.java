@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.blikoon.qrcodescanner.QrCodeActivity;
+import com.example.antonio.inventarios.adapters.adaptadorProduct;
 import com.example.antonio.inventarios.models.OrderItem;
 import com.example.antonio.inventarios.models.Product;
 import com.example.antonio.inventarios.models.produtList;
@@ -24,6 +25,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import kotlin.text.Regex;
 
 public class product extends AppCompatActivity {
     private Toolbar toolbar;
@@ -67,7 +70,6 @@ public class product extends AppCompatActivity {
                         @Override
                         public void onSuccess(String result) {
                             Toast.makeText(getApplicationContext(), "Se añadió a Pendientes", Toast.LENGTH_SHORT).show();
-                            Toast.makeText(getApplicationContext(), "Para actualizar preciona Mis Pedidos", Toast.LENGTH_LONG).show();
                             finish();
                         }
                     });
@@ -93,7 +95,6 @@ public class product extends AppCompatActivity {
                         @Override
                         public void onSuccess(String result) {
                             Toast.makeText(getApplicationContext(), "Pedido Terminado", Toast.LENGTH_SHORT).show();
-                            Toast.makeText(getApplicationContext(), "Para actualizar preciona Mis Pedidos", Toast.LENGTH_LONG).show();
                             finish();
                         }
 
@@ -134,11 +135,11 @@ public class product extends AppCompatActivity {
                                 public void onSuccess(String result) {
                                     try {
                                         JSONObject objProduct = new JSONObject(result.toString());
-
                                         JSONObject products = new JSONObject(objProduct.getString("product"));
+
                                         Product prd = new Product(products.getString("name"), products.getInt("qty"),
-                                                products.getString("meta_info"), products.getString("desc"),
-                                                "", products.getInt("price"), products.getString("warehouse_id"),
+                                                products.getString("meta_info").replaceAll("[^\\dA-Za-z:, ]", "").replace(",",", "), products.getString("desc"),
+                                                products.getString("img"), products.getInt("price"), products.getString("warehouse_id"),
                                                 products.getString("company_id"));
 
                                         productArray.add(prd);

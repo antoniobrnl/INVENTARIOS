@@ -1,14 +1,14 @@
 package com.example.antonio.inventarios.models;
 
 public class Order {
-    private int Date;
+    private Long Date;
     private  String employee_id;
-    private int date_delivery;
+    private Long date_delivery;
     private String company_id;
     private int completed;
     private String id;
 
-    public Order(String id, int date, String employee_id, int date_delivery, String company_id, int completed) {
+    public Order(String id, Long date, String employee_id, Long date_delivery, String company_id, int completed) {
         this.id=id;
         Date = date;
         this.employee_id = employee_id;
@@ -25,11 +25,11 @@ public class Order {
         this.id = id;
     }
 
-    public int getDate() {
+    public Long getDate() {
         return Date;
     }
 
-    public void setDate(int date) {
+    public void setDate(Long date) {
         Date = date;
     }
 
@@ -41,11 +41,11 @@ public class Order {
         this.employee_id = employee_id;
     }
 
-    public int getDate_delivery() {
+    public Long getDate_delivery() {
         return date_delivery;
     }
 
-    public void setDate_delivery(int date_delivery) {
+    public void setDate_delivery(Long date_delivery) {
         this.date_delivery = date_delivery;
     }
 

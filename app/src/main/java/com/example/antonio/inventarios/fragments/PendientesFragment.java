@@ -1,4 +1,4 @@
-package com.example.antonio.inventarios;
+package com.example.antonio.inventarios.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.antonio.inventarios.R;
+import com.example.antonio.inventarios.Requestmethods;
+import com.example.antonio.inventarios.VolleyCallback;
+import com.example.antonio.inventarios.adapters.adaptadorPendientes;
 import com.example.antonio.inventarios.models.Order;
 
 import org.json.JSONArray;
@@ -41,6 +46,20 @@ public class PendientesFragment extends Fragment  {
 
     public void onActivityCreated(Bundle state) {
         super.onActivityCreated(state);
+        getOrders();
+
+        final SwipeRefreshLayout pullToRefresh = getView().findViewById(R.id.pullToRefresh);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getOrders();
+                pullToRefresh.setRefreshing(false);
+            }
+        });
+
+    }
+
+    private void getOrders(){
         final ListView listView = (ListView) getView().findViewById(R.id.list_pedido);
 
         final ArrayList<Order> ordersArray = new ArrayList<Order>();
@@ -60,7 +79,7 @@ public class PendientesFragment extends Fragment  {
                         for (int i = 0; i < orders.length(); i++) {
                             JSONObject order =  orders.getJSONObject(i);
                             if (order.getString("employee_id").indexOf("No ha sido aceptado")>=0) {
-                                Order tmpOrd = new Order(order.getString("_id"),order.getInt("date"), "", order.getInt("date_delivery"), order.getString("company_id"), order.getInt("completed"));
+                                Order tmpOrd = new Order(order.getString("_id"),order.getLong("date"), "", order.getLong("date_delivery"), order.getString("company_id"), order.getInt("completed"));
                                 ordersArray.add(tmpOrd);
                             }
                         }
@@ -81,11 +100,11 @@ public class PendientesFragment extends Fragment  {
                 Order select = new Order(ordersArray.get(i).getId(),ordersArray.get(i).getDate(),ordersArray.get(i).getEmployee_id(),ordersArray.get(i).getDate_delivery(),ordersArray.get(i).getCompany_id(),ordersArray.get(i).getCompleted());
                 try {
                     requestmethods.put("order/",TOKEN,COMPANYID,select.getId(),"completed=1,employee_id='"+ID_EM+"'",new VolleyCallback() {
-                                @Override
-                                public void onSuccess(String result) {
-                                    Toast.makeText(context, "Se añadió a Mis Pedidos", Toast.LENGTH_SHORT).show();
-                                    Toast.makeText(context, "Para actualizar preciona Pendientes", Toast.LENGTH_LONG).show();
+                        @Override
+                        public void onSuccess(String result) {
+                            Toast.makeText(context, "Se añadió a Mis Pedidos", Toast.LENGTH_SHORT).show();
 
+                            getOrders();
                             // ESTO SE VA PARA CUANDO SE TERMINE UNA ORDEN
                         }
                     });
@@ -95,8 +114,8 @@ public class PendientesFragment extends Fragment  {
 
             }
         });
-
     }
+
 
 
 }

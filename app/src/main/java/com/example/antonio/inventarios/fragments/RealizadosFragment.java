@@ -1,4 +1,4 @@
-package com.example.antonio.inventarios;
+package com.example.antonio.inventarios.fragments;
 
 
 import android.annotation.SuppressLint;
@@ -8,13 +8,20 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.example.antonio.inventarios.R;
+import com.example.antonio.inventarios.Requestmethods;
+import com.example.antonio.inventarios.VolleyCallback;
+import com.example.antonio.inventarios.adapters.adaptadorRealizados;
 import com.example.antonio.inventarios.models.Order;
+import com.example.antonio.inventarios.product;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +50,24 @@ public class RealizadosFragment extends Fragment {
 
     public void onActivityCreated(Bundle state) {
         super.onActivityCreated(state);
+        final SwipeRefreshLayout pullToRefresh = getView().findViewById(R.id.pullToRefresh);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getData();
+                pullToRefresh.setRefreshing(false);
+            }
+        });
+        getData();
+    }
+
+
+    public void onResume() {
+        super.onResume();
+        getData();
+    }
+
+    private void getData(){
         final ListView listView = (ListView) getView().findViewById(R.id.list_realizados);
 
         final ArrayList<Order> ordersArray = new ArrayList<Order>();
@@ -62,7 +87,7 @@ public class RealizadosFragment extends Fragment {
                         for (int i = 0; i < orders.length(); i++) {
                             JSONObject order = orders.getJSONObject(i);
                             if (order.getString("employee_id").indexOf(ID_EM) >= 0) {
-                                Order tmpOrd = new Order(order.getString("_id"), order.getInt("date"), "ID_EM", order.getInt("date_delivery"), order.getString("company_id"), order.getInt("completed"));
+                                Order tmpOrd = new Order(order.getString("_id"), order.getLong("date"), "ID_EM", order.getLong("date_delivery"), order.getString("company_id"), order.getInt("completed"));
                                 ordersArray.add(tmpOrd);
                             }
                         }
@@ -91,7 +116,5 @@ public class RealizadosFragment extends Fragment {
             }
 
         });
-
-
     }
 }

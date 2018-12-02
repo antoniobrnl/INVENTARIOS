@@ -1,4 +1,4 @@
-package com.example.antonio.inventarios;
+package com.example.antonio.inventarios.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.antonio.inventarios.R;
 import com.example.antonio.inventarios.models.Inventarios;
 
 import java.util.ArrayList;

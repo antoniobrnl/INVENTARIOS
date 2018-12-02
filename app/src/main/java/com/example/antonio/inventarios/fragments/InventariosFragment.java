@@ -1,4 +1,4 @@
-package com.example.antonio.inventarios;
+package com.example.antonio.inventarios.fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.antonio.inventarios.R;
+import com.example.antonio.inventarios.Requestmethods;
+import com.example.antonio.inventarios.VolleyCallback;
+import com.example.antonio.inventarios.adapters.adaptadorAlmacen;
 import com.example.antonio.inventarios.models.Inventarios;
 
 import org.json.JSONArray;

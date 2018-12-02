@@ -20,6 +20,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.antonio.inventarios.fragments.InventariosFragment;
+import com.example.antonio.inventarios.fragments.PendientesFragment;
+import com.example.antonio.inventarios.fragments.RealizadosFragment;
+
 import static com.example.antonio.inventarios.R.menu.menu_main;
 
 
@@ -81,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String TOKEN = preferences.getString("TOKEN","No Existe");
 
-        if (TOKEN == ""){
+        if (TOKEN == "No Existe"){
             setContentView(R.layout.activity_main);
             Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
             startActivity(intent);
