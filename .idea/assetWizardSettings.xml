@@ -29,17 +29,6 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
-                                      <entry key="foregroundImage">
-                                        <value>
-                                          <PersistentState>
-                                            <option name="values">
-                                              <map>
-                                                <entry key="trimmed" value="true" />
-                                              </map>
-                                            </option>
-                                          </PersistentState>
-                                        </value>
-                                      </entry>
                                       <entry key="foregroundText">
                                         <value>
                                           <PersistentState>
@@ -55,7 +44,8 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="foregroundImage" value="C:\Users\Antonio\Downloads\logo.png" />
+                                      <entry key="foregroundImage" value="C:\Users\Antonio\Desktop\Logo 1.3.png" />
+                                      <entry key="legacyIconShape" value="NONE" />
                                       <entry key="showSafeZone" value="false" />
                                       <entry key="webIconShape" value="NONE" />
                                     </map>
@@ -66,26 +56,12 @@
                             <entry key="launcherLegacy">
                               <value>
                                 <PersistentState>
-                                  <option name="children">
-                                    <map>
-                                      <entry key="image">
-                                        <value>
-                                          <PersistentState>
-                                            <option name="values">
-                                              <map>
-                                                <entry key="paddingPercent" value="-5" />
-                                              </map>
-                                            </option>
-                                          </PersistentState>
-                                        </value>
-                                      </entry>
-                                    </map>
-                                  </option>
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
+                                      <entry key="cropped" value="true" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="C:\Users\Antonio\Downloads\logo.png" />
+                                      <entry key="imageAsset" value="C:\Users\Antonio\Desktop\Logo 1.3.png" />
                                     </map>
                                   </option>
                                 </PersistentState>
